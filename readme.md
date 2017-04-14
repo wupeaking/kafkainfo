@@ -1,4 +1,4 @@
-### kafainfo 是一个用于调试kafka的命令行工具
+### kafkainfo 是一个用于调试kafka的命令行工具
 
 #### 安装
 
@@ -20,10 +20,10 @@ go build -o kafkainfo main.go
 
 ```shell
 # Linux 64bit
-curl -o kakfainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0.0.1/kafkainfo-linux64
+curl -o kafkainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0.0.1/kafkainfo-linux64
 
 # mac
-curl -o kakfainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0.0.1/kafkainfo-mac
+curl -o kafkainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0.0.1/kafkainfo-mac
 ```shell
 
 
