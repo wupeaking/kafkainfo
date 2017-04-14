@@ -16,6 +16,16 @@ go build -o kafkainfo main.go
 
 ```
 
+> 直接下载二进制执行文件
+
+```shell
+# Linux 64bit
+curl -o kakfainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0.0.1/kafkainfo-linux64
+
+# mac
+curl -o kakfainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0.0.1/kafkainfo-mac
+```shell
+
 
 #### 命令
 
