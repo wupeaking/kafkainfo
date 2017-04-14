@@ -8,8 +8,14 @@ import (
 	"errors"
 	"strings"
 	"fmt"
+	"time"
 )
 
+var renderCallBacks = make([]func()error, 0)
+
+func registerRenderCallBacks(cb func()error) {
+	renderCallBacks = append(renderCallBacks, cb)
+}
 
 func renderInit() {
 	err := ui.Init()
@@ -30,8 +36,13 @@ func renderInit() {
 	ui.Handle("/sys/kbd", func(ui.Event) {
 	    // handle all other key pressing
 		ui.StopLoop()
+		ui.Close()
 	})
-
+	ui.Handle("/timer/1s", func(e ui.Event) {
+		for _, cb := range renderCallBacks{
+			cb()
+		}
+	})
 }
 
 
@@ -47,7 +58,7 @@ func renderPar(tx, ty, bx, by int) (int, int, int, int){
 
 	// 再创建一个无边框
 	p2 := ui.NewPar("     kafkainfo 是一个简单的调试工具（按任意键退出）")
-	p2.Border = true
+	p2.Border = false
 	p2.X = tx
 	p2.Y = by+1
 	p2.Height = 3
@@ -55,6 +66,13 @@ func renderPar(tx, ty, bx, by int) (int, int, int, int){
 	p2.Width = 60
 
 	ui.Render(p2) // feel free to call Render, it's async and non-block
+
+	registerRenderCallBacks(func() error{
+		p2.Border = !p2.Border
+		p2.BorderLabel = time.Now().String()
+		ui.Render(p2)
+		return nil
+	})
 
 	return p2.X, p2.Y, p2.X+p2.Width, p2.Y+p2.Height
 
@@ -161,13 +179,12 @@ func getAllTopics(kafkaCli kafka.Client) []string {
 	}else{
 		return topics
 	}
-
-	brokers := kafkaCli.Brokers()
-
-	for i, broker := range brokers {
-		log.WithField("index:", i).Info("id: ", broker.ID, " addr: ", broker.Addr())
-	}
-	return nil
+	//brokers := kafkaCli.Brokers()
+	//
+	//for i, broker := range brokers {
+	//	log.WithField("index:", i).Info("id: ", broker.ID, " addr: ", broker.Addr())
+	//}
+	//return nil
 }
 
 // 获取所有的topic对应的分区数量
@@ -234,26 +251,19 @@ func UIshowCommand(c *cli.Context) error{
 
 	// 获取所有topic
 	topics := getAllTopics(kafkaCli)
-	log.Info(topics)
-
 	// 获取所有topic对应的分区数量
 	topicsinfos := getTopicsInfo(kafkaCli, topics)
-	log.Info(topicsinfos)
 	// 获取每个topic的每个分区的leader
 	partsLeader := getPartsLeader(kafkaCli, topicsinfos)
-	log.Info(partsLeader)
 	// 获取所有的broker
 	brokerInfo := getAllBrokerINfo(kafkaCli)
-	log.Info(brokerInfo)
-	//println(topicsinfos, partsLeader, brokerInfo)
-
 	defer kafkaCli.Close()
 	//// 初始化渲染
 	renderInit()
-	//
+
 	//// 渲染一个标题
 	tx, ty, bx, by := renderPar(0, 0, 0, 0)
-	//
+
 	//// 渲染broker信息
 	tx, ty, bx, by =renderBrokerInfo(brokerInfo, tx, ty, bx, by)
 	////  渲染主题详情
