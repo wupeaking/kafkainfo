@@ -24,7 +24,7 @@ curl -o kafkainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0
 
 # mac
 curl -o kafkainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0.0.1/kafkainfo-mac
-```shell
+```
 
 
 #### 命令
