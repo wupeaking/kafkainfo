@@ -136,33 +136,6 @@ func renderTopicInfo(topicinfo map[string]int, partsLeader map[string][]string, 
 	return infoList.X, infoList.Y, infoList.X + infoList.Width, infoList.Y + infoList.Height
 }
 
-func renderList() {
-
-	strs := []string{
-		"[0] github.com/gizak/termui",
-		"[1] [你好，世界](fg-blue)",
-		"[2] [こんにちは世界](fg-red)",
-		"[3] [color output](fg-white,bg-green)",
-		"[4] output.go",
-		"[5] random_out.go",
-		"[6] dashboard.go",
-		"[7] nsf/termbox-go"}
-	list := ui.NewList()
-	list.Items = strs
-	list.BorderFg = ui.ColorYellow
-	list.ItemFgColor = ui.ColorCyan
-	list.BorderLabel = "列表示例"
-	list.Height = 8
-	list.Width = 50
-	list.Y = 5
-	ui.Render(list)
-	ui.Handle("/sys/kdb/l", func(ui.Event) {
-		// 当按下l键时  更新一些参数 重新渲染
-		list.Items[3] = "[3] [l键被按下](fg-white,bg-green)"
-		ui.Render(list)
-	})
-}
-
 func renderLoop() {
 	ui.Loop()
 }
