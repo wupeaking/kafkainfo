@@ -1,11 +1,11 @@
-### kafkainfo 是一个用于调试kafka的命令行工具
----
+## kafkainfo 是一个用于调试kafka的命令行工具
+
 [![Travis](https://travis-ci.org/wupeaking/kafkainfo.svg?branch=master)](https://travis-ci.org/wupeaking/kafkainfo)
 [![GoDoc](https://godoc.org/github.com/wupeaking/kafkainfo?status.svg)](https://godoc.org/github.com/wupeaking/kafkainfo)
 [![codecov.io](https://codecov.io/gh/wupeaking/kafkainfo/coverage.svg?branch=master)](https://codecov.io/gh/wupeaking/kafkainfo?branch=master)
 
-#### 安装
----
+## 安装
+
 
 > 源码build
 
@@ -32,7 +32,7 @@ curl -o kafkainfo -L https://github.com/wupeaking/kafkainfo/releases/download/v0
 ```
 
 
-#### 命令
+## 命令
 ---
 
 > 查看所有子命令
@@ -129,8 +129,8 @@ OPTIONS:
 ![produce-consum](./doc/producs-consum.png)
 
 
-#### ui显示
----
+### ui显示
+
 
 > ./kafkainfo uishow --addr 172.24.4.168:9092
 
