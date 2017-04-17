@@ -1,4 +1,6 @@
 ### kafkainfo 是一个用于调试kafka的命令行工具
+[![Travis](https://travis-ci.org/wupeaking/kafkainfo.svg?branch=master)](https://travis-ci.org/wupeaking/kafkainfo)
+[![codecov.io](https://codecov.io/gh/wupeaking/kafkainfo/coverage.svg?branch=master)](https://codecov.io/gh/wupeaking/kafkainfo?branch=master)
 
 #### 安装
 
