@@ -2,16 +2,17 @@ package main
 
 import (
 	"errors"
-	"github.com/urfave/cli"
-	ui "github.com/wupeaking/kafkainfo/uishow"
-	log "github.com/wupeaking/logrus"
-	kafka "github.com/wupeaking/sarama"
-	kafkaCluster "github.com/wupeaking/sarama-cluster"
 	"os"
 	"os/signal"
 	"strings"
 	"syscall"
 	"time"
+
+	"github.com/urfave/cli"
+	ui "github.com/wupeaking/kafkainfo/uishow"
+	log "github.com/wupeaking/logrus"
+	kafka "github.com/wupeaking/sarama"
+	kafkaCluster "github.com/wupeaking/sarama-cluster"
 )
 
 // 获取kafka的所有topic
@@ -56,6 +57,7 @@ func topicCommand(c *cli.Context) error {
 			log.Info("topic:", topic, " part:", part, " addr: ", broker.Addr(), " id:", broker.ID())
 			return nil
 		}
+
 	case "":
 		log.Info("kafkainfo topic --addr localhost:9092 list 显示所有存在的topic")
 		log.Info("kafkainfo topic --addr localhost:9092 -t beats -p 0 leader 显示指定topic的某个分区的leader")
@@ -231,7 +233,7 @@ countLabel:
 	for {
 		select {
 		case msg := <-consumer.Messages():
-			sumSuc += 1
+			sumSuc++
 			log.Info("主题: ", msg.Topic, " 分区: ", msg.Partition, " 偏移量: ",
 				msg.Offset, " key: ", msg.Key, " value:", string(msg.Value))
 			consumer.MarkOffset(msg, "") // mark message as processed
@@ -243,13 +245,12 @@ countLabel:
 			return nil
 		}
 	}
-	return nil
 
 foreverLabel:
 	for {
 		select {
 		case msg := <-consumer.Messages():
-			sumSuc += 1
+			sumSuc++
 			log.Info("主题: ", msg.Topic, " 分区: ", msg.Partition, " 偏移量: ",
 				msg.Offset, " key: ", string(msg.Key), " value: ", string(msg.Value))
 			consumer.MarkOffset(msg, "") // mark message as processed
@@ -259,7 +260,7 @@ foreverLabel:
 		}
 
 	}
-	return nil
+
 }
 
 func main() {
