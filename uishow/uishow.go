@@ -6,7 +6,7 @@ import (
 	ui "github.com/gizak/termui" // <- ui shortcut, optional
 	"github.com/urfave/cli"
 	log "github.com/wupeaking/logrus"
-	kafka "github.com/wupeaking/sarama"
+	kafka "github.com/Shopify/sarama"
 	"strings"
 	"time"
 )

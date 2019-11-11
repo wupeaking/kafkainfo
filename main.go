@@ -11,8 +11,8 @@ import (
 	"github.com/urfave/cli"
 	ui "github.com/wupeaking/kafkainfo/uishow"
 	log "github.com/wupeaking/logrus"
-	kafka "github.com/wupeaking/sarama"
-	kafkaCluster "github.com/wupeaking/sarama-cluster"
+	kafka "github.com/Shopify/sarama"
+	kafkaCluster "github.com/bsm/sarama-cluster"
 )
 
 // 获取kafka的所有topic
